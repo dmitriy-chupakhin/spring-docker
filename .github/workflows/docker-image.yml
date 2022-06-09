@@ -1,6 +1,9 @@
 name: Docker Image CI
 
 on:
+  workflow_dispatch:
+    inputs:
+      description: { "type" : "string", "required" : true }
   push:
     branches: [ "dev" ]
 
