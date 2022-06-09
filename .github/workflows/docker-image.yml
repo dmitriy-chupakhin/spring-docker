@@ -1,9 +1,6 @@
 name: Docker Image CI
 
 on:
-  workflow_dispatch:
-    inputs:
-      description: { "type" : "string", "required" : true }
   push:
     branches: [ "dev" ]
 
@@ -34,7 +31,7 @@ jobs:
           context: ./
           file: ./Dockerfile
           push: true
-          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/spring-server:latest
+          tags: chdmdev/spring-docker:latest
           
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
