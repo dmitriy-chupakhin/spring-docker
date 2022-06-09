@@ -26,18 +26,18 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Object> getUserById(@PathVariable Long id) {
-        try {
-            return new ResponseEntity<>(new UserDto(service.findById(id)), HttpStatus.OK);
-        } catch (UserNotFoundException ex) {
-            log.error(ex.getMessage());
-            return new ResponseEntity<>(ex.getMessage(), HttpStatus.OK);
-        }
+    public ResponseEntity<Object> getUserById(@PathVariable Long id) throws UserNotFoundException {
+        return new ResponseEntity<>(new UserDto(service.findById(id)), HttpStatus.OK);
     }
 
     @PostMapping
     public void saveUser(@RequestBody UserDto dto) {
         service.save(dto.toUser());
+    }
+
+    @ExceptionHandler(UserNotFoundException.class)
+    public ResponseEntity<String> handleUserException(Exception exception) {
+        return new ResponseEntity<>(exception.getMessage(), HttpStatus.NOT_FOUND);
     }
 
 }
