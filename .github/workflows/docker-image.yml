@@ -28,7 +28,7 @@ jobs:
         run: docker build . --file Dockerfile --tag spring-server
         
       - name: Push image
-        run: docker push chdmdev/spring-server:latest
+        run: docker push chdmdev/spring-server
           
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
